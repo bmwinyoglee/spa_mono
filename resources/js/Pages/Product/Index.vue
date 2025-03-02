@@ -68,7 +68,7 @@
                                 <td class="px-6 py-4 space-x-2">
                                     <Link :href="route('product.show', product.id)" class="font-medium text-gray-600 hover:underline">Show</Link>
                                     <Link :href="route('product.edit', product.id)" class="font-medium text-blue-600 hover:underline">Edit</Link>
-                                    <a href="#" class="font-medium text-red-600 hover:underline">Delete</a>
+                                    <a href="#" class="font-medium text-red-600 hover:underline" @click.prevent="deleteRow(product.id)">Delete</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -116,7 +116,16 @@
 
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
+
+const deleteRow = (id) => {
+    if (window.confirm("Are you sure?")) {
+        router.delete(route('product.destroy', id), {
+            preserveScroll: true
+        })
+    }
+}
+
 
 defineProps({
     products: {
@@ -124,4 +133,6 @@ defineProps({
         required: true
     }
 })
+
+
 </script>
