@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,5 +21,12 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
+    protected function price():Attribute
+    {
+        return Attribute::make(
+            set: fn(int $value) => $value * 100,
+            get: fn(int $value) => $value / 100
+        );
+    }
 
 }
