@@ -62,7 +62,10 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return inertia('Product/Edit', [
+            'categories' => CategoryResource::collection(Category::orderBy('name')->get()),
+            'product' => ProductResource::make($product)
+        ]);
     }
 
     /**
@@ -70,7 +73,13 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+
+        // dd($product->id);
+        //persist data froom the request into the database
+        $product->update($request->validated());
+
+        //redirect user to the index page with list of products.
+        return redirect()->route('product.show', $product->id);
     }
 
     /**
