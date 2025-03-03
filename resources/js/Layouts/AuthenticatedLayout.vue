@@ -186,6 +186,10 @@
 
             <!-- Page Content -->
             <main>
+                <div v-if="$page.props.toast.message">
+                    {{ $page.props.toast.message }}
+                </div>
+
                 <slot />
             </main>
         </div>

@@ -44,7 +44,9 @@ class ProductController extends Controller
     {
         $request->user()->products()->create($request->validated());
         
-        return redirect()->route('product.index');
+        return redirect()
+                ->route('product.index')
+                ->with('message', 'Product created successfully');
     }
 
     /**
@@ -79,7 +81,9 @@ class ProductController extends Controller
         $product->update($request->validated());
 
         //redirect user to the index page with list of products.
-        return redirect()->route('product.show', $product->id);
+        return redirect()
+                ->route('product.show', $product->id)
+                ->with('message', 'Product has been updated successfully');
     }
 
     /**
@@ -89,6 +93,8 @@ class ProductController extends Controller
     {
         $product->delete();
 
-        return redirect()->route('product.index');
+        return redirect()
+                ->route('product.index')
+                ->with('message', 'Product has been deleted successfully');
     }
 }
